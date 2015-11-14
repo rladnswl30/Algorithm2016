@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+int
+main()
+{
+	int i, j, x, count = 1;
+	int stick_arr[7] = { 64, 32, 16, 8, 4, 2, 1 };
+
+	scanf("%d", &x);
+
+	// 원하는 막대가 64보다 크고 1보다 작을 때,
+	if (x > 64 || x < 1) {
+		// ERROR.
+		printf("0\n");
+		return -1;
+	}
+
+	// 원하는 막대가 64일 때,
+	if (stick_arr[0] == x) {
+		printf("1\n");
+		return 1;
+	}
+
+	for (i = 1; i < 7; i++) {
+		if (stick_arr[i] == x) {
+			printf("1\n");
+			return count;
+		}
+		else if (stick_arr[i] > x) {
+			continue;
+		}
+		else if (stick_arr[i] < x) {
+			for (j = i + 1; j < 7; j++) {
+				if (x > stick_arr[i] + stick_arr[j]) {
+					stick_arr[i] = stick_arr[i] + stick_arr[j];
+					count++;
+				}
+				else if (x == stick_arr[i] + stick_arr[j]) {
+					count++;
+					printf("%d\n", count);
+					return 0;
+				}
+			}
+		}
+	}
+
+	return 0;
+}
