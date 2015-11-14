@@ -1,0 +1,58 @@
+#include <stdio.h>
+
+unsigned long long combination(int west, int east);
+
+int
+main()
+{
+	int i, num;
+	int west, east;
+
+	scanf("%d", &num);
+
+	for (i = 0; i < num; i++) {
+		scanf("%d %d", &west, &east);
+
+		if (west > east) {
+			//error.
+			return 0;
+		}
+		else if (west == east) {
+			printf("1\n");
+		}
+		else {	// west < east
+			if (west == 1) {
+				printf("%d\n", east);
+			}
+			else {
+				printf("%llu\n", combination(west, east));
+			}
+		}
+	}
+
+	return 0;
+}
+
+unsigned long long
+combination(int west, int east) // east 가 더 큰 값
+{
+	unsigned long long combi;
+
+	unsigned long long w = 1, e = 1, i;
+
+	if (west > (east / 2)) {	// combination 은 (30 C 28) 이나 (30 C 2)나 똑같기 때문에, 굳이 (30 C 28)로 할 필요 없다.
+		west = east - west;
+	}
+
+	for (i = 1; i <= west; i++) {
+		w *= i;
+	}
+
+	for (i = east - west + 1; i <= east; i++) {
+		e *= i;
+	}
+
+	combi = e / w;
+
+	return combi;
+}
