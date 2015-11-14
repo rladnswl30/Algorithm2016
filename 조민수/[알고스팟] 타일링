@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <string.h>
+
+int tiling(int width);
+
+const int MODULUS = 1000000007;
+int mem[101];
+
+int
+main()
+{
+	int cases; // 테스트 케이스 개수
+	int width;
+	int i;
+
+	scanf("%d", &cases);
+
+	if (cases < 1 || cases > 50) {
+		//error.
+		return 0;
+	}
+
+	memset(mem, -1, sizeof(mem));
+
+	for (i = 0; i < cases; i++) {
+		scanf("%d", &width);
+
+		printf("%d\n", tiling(width));
+	}
+
+	return 0;
+}
+
+int
+tiling(int width)
+{
+	int i;
+	int x;		// 입력값 width 길이가 주어졌을 때, x 가지의 방법으로 2*width 사각형을 채울 수 있다.
+
+	if (mem[width] != -1) {
+		return mem[width];
+	}
+
+	if (width == 1 || width == 0) {
+		x = 1;
+	}
+	else {
+		x = tiling(width - 1) + tiling(width - 2);
+	}
+
+	mem[width] = x % MODULUS;
+
+	return mem[width];
+}
