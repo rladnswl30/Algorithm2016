@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main()
+{
+	int i;
+	int num;		// 입력받을 정수.
+	int result;		// 한수의 개수.
+	char num_char_arr[5] = { '0' };
+
+	scanf("%d", &num);
+
+	if (num < 1 || num > 1000) {
+		// error.
+		return 0;
+	}
+
+	if (num < 100) {
+		printf("%d\n", num);
+
+		return 0;
+	}
+
+	result = 99; // 100 이상이면 무조건 99개의 한수를 가지고 있을 것이다.
+
+	for (i = 100; i <= num; i++) {
+		snprintf(num_char_arr, 5, "%d", i);		// itoa 대신.k			// 몇번의 런타임 에러가 났는데, 두번째 인자(버퍼길이)를 10으로 했었다.
+		//_itoa(i, num_char_arr, 10);	//ansi 표준함수가 아니라서 컴파일 에러.
+		//참고로 atoi는 표준함수다.
+
+		if ((num_char_arr[2] - num_char_arr[1]) == (num_char_arr[1] - num_char_arr[0])) {
+			result++;
+		}
+	}
+
+	printf("%d\n", result);
+
+	return 0;
+}
