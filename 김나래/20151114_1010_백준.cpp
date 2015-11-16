@@ -10,15 +10,9 @@ unsigned long long Combination(int n, int k) {
 	unsigned long long a = 1, r = 1;
 	int i, j=1, tt=0;
 
-	printf("%d C %d\n", n, k);
-
 	for(i =n; i >n-k; --i){
 		a *= i;
-		printf("a : %llu ", a);
-
 		r *= j;
-		printf("r : %llu\n", r);
-
 		j++;
 	}
 	
@@ -27,15 +21,15 @@ unsigned long long Combination(int n, int k) {
 
 int main(){
 	int C;
-	int N[30] = {0,};
-	int M[30] = {0,};
+	int N[30] = {'\0'};
+	int M[30] = {'\0'};
 	int i,j,diff;
+	int r;
 	unsigned long long res = 0;
 	scanf("%d",&C);
 
 	for(i=0; i<C; ++i){
 		scanf("%d %d",&N[i],&M[i]);
-		printf("출력값 : %d %d \n", N[i], M[i]);
 		fflush(stdin);
 	}
 
@@ -45,8 +39,14 @@ int main(){
 			res = 1;
 		else if (N[i] ==1)
 			res = M[i];
-		else
-			res=Combination(M[i],N[i]);
+		else{
+			if(N[i] > M[i]-N[i])
+				r = M[i]-N[i];
+			else
+				r = N[i];
+
+			res=Combination(M[i],r);
+		}
 
 		printf("%llu\n",res);
 	}
