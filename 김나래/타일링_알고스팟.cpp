@@ -2,12 +2,10 @@
 *  algospot 타일링 문제
 * https://algospot.com/judge/problem/read/TILING2
 * nrkim
-* 100은 ㅈ대로 안나옴
 */
 
 #include <iostream>
 #include <vector>
-#include <climits>
 
 using namespace std;
 
@@ -16,7 +14,7 @@ unsigned long long Combination(int n, int k) {
 	unsigned long long a = 1, r = 1;
 	int i, j=1, tt=0;
 
-	for(i =n; i >=n-k+1; --i){
+	for(i =n; i >=n-k; --i){
 		a *= i;
 		r *= j;
 		j++;
@@ -29,11 +27,8 @@ unsigned long long Combination(int n, int k) {
 int main() {
 
 	int C;		// C : 테스트 케이스
-	while (1) {
-		cin >> C;
-		if (C <= 50) break;
-		else cout << "테스트 케이스는 50개 이하로 입력." << endl;
-	}
+
+	cin >>C;
 
 	int* nArr = new int[C];	// nArr : 정수 n 담는 배열
 	for (int i = 0; i < C;) {
