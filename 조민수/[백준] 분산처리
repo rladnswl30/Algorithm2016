@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int main()
+{
+	//마지막 자리수를 알면 된다.
+	//따라서 a=3 b=7 이라면, 3*7 한뒤, 10으로 나눈 나머지를 다시 7로 곱하고, 이러한 것을 반복하자.
+
+	int i, j, cases, a, b;
+
+	scanf("%d", &cases);
+
+	for (i = 0; i < cases; i++) {
+		int result = 1;
+
+		scanf("%d %d", &a, &b);
+
+		for (j = 0; j < b; j++) {
+			result *= a;
+			result %= 10;
+		}
+		if (result != 0) {
+			printf("%d\n", result);
+		}
+		else {
+			printf("10\n");
+		}
+	}
+
+	return 0;
+}
