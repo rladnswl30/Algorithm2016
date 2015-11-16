@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main()
+{
+	int fibo_double_arr[3][41] = { {1, 0, 1}, {0, 1, 1}, {-1, -1, -1}, };		// 3의 의미는 0은 0이 출력되는 개수, 1은 1이 출력되는 개수, 2는 어디까지 계산되었나 체크하는 인덱스이다.
+															// 41의 의미는 사용자의 입력값 범위가 40까지이기 때문에 존재한다.
+	int i, j, num, cases = 0;
+
+	scanf("%d", &cases);
+
+	for (i = 0; i < cases; i++) {
+		scanf("%d", &num);
+		
+		if (num == 0) {
+			printf("1 0\n");
+			continue;
+		}
+		else if (num == 1) {
+			printf("0 1\n");
+			continue;
+		}
+
+		if (fibo_double_arr[2][num] != 1) {
+			for (j = 2; j <= num; j++) {		// 0과 1번째를 제외하고 2번째 피보부터.
+				fibo_double_arr[0][j] = fibo_double_arr[0][j - 1] + fibo_double_arr[0][j - 2];
+				fibo_double_arr[1][j] = fibo_double_arr[1][j - 1] + fibo_double_arr[1][j - 2];
+				fibo_double_arr[2][j] = 1;
+			}
+		}
+
+		printf("%d %d\n", fibo_double_arr[0][num], fibo_double_arr[1][num]);
+	}
+
+	return 0;
+}
