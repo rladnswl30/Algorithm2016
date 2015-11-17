@@ -1,8 +1,6 @@
 ﻿#include <stdio.h>
 #include <string.h>
 
-char array1[100] ;
-char array2[100];
 int zero = 0;
 int one = 0;
 int i = 0;
