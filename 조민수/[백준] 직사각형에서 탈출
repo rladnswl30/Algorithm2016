@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+int
+main()
+{
+	int xywh[4], i, min;
+
+	scanf("%d %d %d %d", &xywh[0], &xywh[1], &xywh[2], &xywh[3]);
+
+	if (xywh[2] > 1000 || xywh[3] > 1000) {
+		//error
+		return 0;
+	}
+
+	if (xywh[0] < 1 || xywh[2] - 1 < xywh[0]) {
+		//error
+		return 0;
+	}
+
+	if (xywh[1] < 1 || xywh[3] - 1 < xywh[1]) {
+		//error
+		return 0;
+	}
+
+	min = xywh[0];
+	xywh[2] = xywh[2] - xywh[0];		// xywh[2] 는 w를 뜻했지만, 이제는 w - x이다.
+	xywh[3] = xywh[3] - xywh[1];		// xywh[3] 는 h를 뜻했지만, 이제는 h - y이다.
+
+	for (i = 0; i < 3; i++) {
+		if (min > xywh[i + 1]) {
+			min = xywh[i + 1];
+		}
+	}
+
+	printf("%d\n", min);
+
+	return 0;
+}
