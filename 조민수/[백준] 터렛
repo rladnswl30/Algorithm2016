@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <math.h>
+
+//http://mathbang.net/101
+int
+main()
+{
+	int i, cases;
+
+	int x1, y1, r1, x2, y2, r2;
+
+	scanf("%d", &cases);
+
+	for (i = 0; i < cases; i++) {
+		int distance;
+
+		scanf("%d %d %d %d %d %d", &x1, &y1, &r1, &x2, &y2, &r2);
+
+		distance = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+
+		// 제곱근해줌으로써 실제 distance다.
+		//distance = (int)sqrt((double)distance);	// 이거 주석풀고 밑에도 r1-r2, r1+r2 등으로 하면 틀린다....
+													// 이거 주석으로 없애고, (r1 - r2) * (r1 - r2), (r1 + r2) * (r1 + r2) 로 하면 맞는다.
+
+		if (distance == 0) {	// 원의 중심이 같은 경우
+			if (r1 == r2) {
+				printf("-1\n");
+			}
+			else {
+				printf("0\n");
+			}
+		}
+		else {	// 원의 중심이 다른 경우
+			if (distance > (r1 - r2) * (r1 - r2) && distance < (r1 + r2) * (r1 + r2)) {		// 두 점에서 만나는 경우
+				printf("2\n");
+			}
+			else if (distance == (r1 + r2) * (r1 + r2) || distance == (r1 - r2) * (r1 - r2)) {		// 한 점에서 만나는 경우
+				printf("1\n");
+			}
+			else if (distance > (r1 + r2) * (r1 + r2) || distance < (r1 - r2) * (r1 - r2)) {	// 만나지 않는 경우
+				printf("0\n");
+			}
+		}
+
+	}
+
+	return 0;
+}

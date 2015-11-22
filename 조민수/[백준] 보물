@@ -1,0 +1,76 @@
+#include <stdio.h>
+
+// mode가 1일 때는 오름차순, mode가 2일 때는 내림차순으로 sorting한다.
+void sort(int mode, int arr[], int size);
+
+int
+main()
+{
+	int i, n;
+	int a[50];
+	int b[50];
+	int result = 0;
+
+	scanf("%d", &n);
+
+	if (n > 50) {
+		//error.
+		return 0;
+	}
+
+	for (i = 0; i < n; i++) {
+		scanf("%d", &a[i]);
+	}
+
+	for (i = 0; i < n; i++) {
+		scanf("%d", &b[i]);
+	}
+
+	sort(1, a, n);
+	sort(2, b, n);
+
+	for (i = 0; i < n; i++) {
+		result += a[i] * b[i];
+	}
+
+	printf("%d\n", result);
+
+	return 0;
+}
+
+//선택 정렬 이용함.
+void
+sort(int mode, int arr[], int size)
+{
+	int i, j, index, temp;
+	if (mode == 1) {
+		for (i = 0; i < size - 1; i++) {
+			index = i;
+
+			for (j = i + 1; j < size; j++) {
+				if (arr[index] > arr[j]) {
+					index = j;
+				}
+			}
+
+			temp = arr[index];
+			arr[index] = arr[i];
+			arr[i] = temp;
+		}
+	}
+	else if (mode == 2) {
+		for (i = 0; i < size - 1; i++) {
+			index = i;
+
+			for (j = i + 1; j < size; j++) {
+				if (arr[index] < arr[j]) {
+					index = j;
+				}
+			}
+
+			temp = arr[index];
+			arr[index] = arr[i];
+			arr[i] = temp;
+		}
+	}
+}
