@@ -55,15 +55,12 @@ void delNode(vector<Tree*>& tree, int node, int *cnt) {
 
 	vector<Tree *>::iterator it = tree.begin();
 	while (it != tree.end()) {
-		if ((*it)->node == node) {
+		if ((*it)->node == node)
 			it = tree.erase(it);
-		}
 		else {
 			delNode((*it)->leafs, node, cnt);
-
 			if ((*it)->leafs.empty())
 				++(*cnt);
-
 			++it;
 		}
 	}
