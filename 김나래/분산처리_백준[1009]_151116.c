@@ -1,7 +1,6 @@
 /*
 2015.11.16
 https://www.acmicpc.net/problem/1009
-제출했는데 오답이라 나옴 / 왜그런것인지?!
 */
 
 #include <stdio.h>
@@ -10,7 +9,7 @@ int main(){
 
 	int T=0;
 	int a=0,b=0;
-	unsigned long res;
+	int res;
 	
 	scanf("%d",&T);
 	for(int i=0; i<T; ++i){
@@ -20,7 +19,8 @@ int main(){
 		for(int i=0; i<b;i++)
 			res=(res*a)%10;
 
-		printf("%lu\n",res);
+		if (res == 0) printf("10\n");
+		else printf("%d\n",res);
 	}
 
 	return 0;
