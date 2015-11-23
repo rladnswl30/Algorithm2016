@@ -20,9 +20,15 @@ https://www.acmicpc.net/problem/1068
 2
 ´ä : 1
 =========
+5
+2 4 4 2 -1
+3
+´ä : 2
+=========
+
 */
 
-#include <stdio.h>
+#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -35,19 +41,52 @@ typedef struct Tree {
 	~Tree() {
 		vector<Tree *>::iterator it = leafs.begin();
 		while (it != leafs.end())
-			leafs.erase(it);
+			it = leafs.erase(it);
 	}
-};
+}Tree;
 
+vector<Tree *>* search(vector<Tree *>* tree, int *idx, int item) {
+	vector<Tree *>* res = tree;
+	if (tree->empty()) {
+		*idx = 0;
+		return tree;
+	}
+	else {
+		for (int i = 0; i < tree->size(); ++i) {
+			if ((*tree)[i]->node == item) {
+				*idx = i;
+				return tree;
+			}
+			else
+				res = search(&(*tree)[i]->leafs, idx, item);
+		}
+		return res;
+	}
+}
 
-void search(vector<Tree*>& tree, int parent, int item) {
-	Tree *leaf;
+void insert(vector<Tree*>* tree, int parent, int child) {
 
-	for (int i = 0; i < tree.size(); ++i) {
-		if (tree[i]->node == parent)
-			tree[i]->leafs.push_back(new Tree(item));
-		else
-			search(tree[i]->leafs, parent, item);
+	int i, j;
+	vector<Tree*>* cTree;
+	vector<Tree*>* pTree;
+
+	if (parent == -1) {
+		if ((search(tree, &j, child))->empty())
+			tree->push_back(new Tree(child));
+		return;
+	}
+
+	if ((pTree = search(tree, &i, parent))->empty()) {
+		tree->push_back(new Tree(parent));
+		pTree = tree;
+		i = tree->size() - 1;
+	}
+
+	if ((cTree = search(tree, &j, child))->empty())
+		(*pTree)[i]->leafs.push_back(new Tree(child));
+	else {
+		(*pTree)[i]->leafs.push_back((*cTree)[j]);
+		cTree->erase(cTree->begin() + j);
 	}
 }
 
@@ -67,26 +106,31 @@ void delNode(vector<Tree*>& tree, int node, int *cnt) {
 }
 
 int main(void) {
-
 	vector<Tree * > tree;
-	int leng, parent, node, cnt = 0;
+	int leng = 0, node = 0, cnt = 0;
+	bool first = true;
 
-	scanf("%d", &leng);
+	cin >> leng;
+	int *parent = new int[leng];
+	for (int i = 0; i < leng; ++i)
+		cin >> parent[i];
+	cin >> node;
 
 	for (int i = 0; i < leng; ++i) {
-		scanf("%d ", &parent);
-
-		if (parent == -1)
-			tree.push_back(new Tree(i));
+		if (parent[i] == -1) {
+			if (first) {
+				first = false;
+				insert(&tree, parent[i], i);
+			}
+			else
+				break;
+		}
 		else
-			search(tree, parent, i);
-
+			insert(&tree, parent[i], i);
 	}
-
-	scanf("%d", &node);
 	delNode(tree, node, &cnt);
 
-	printf("%d ", cnt);
+	cout << cnt;
 
 	return 0;
 }
