@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <math.h>
+
+// round 인자는 현재 최대 몇 라운드에 a와 b가 만날것인지를 나타낸다.
+int func(int a, int b, int start, int end, int round);
+
+int
+main()
+{
+	int i;
+	int a_range, b_range;
+	int total_num;			// 100,000 보다 작거나 같은 자연수.
+	int a, b;				// 김지민과 임한수의 번호.
+	int result;				// 정답
+
+	scanf("%d %d %d", &total_num, &a, &b);
+
+	// a가 작은 수 b가 큰 수로 swap. 이후로는 무조건 a < b.
+	if (a > b) {
+		int temp;
+
+		temp = a;
+		a = b;
+		b = temp;
+	}
+
+	// a가 홀수이고, b가 a + 1 값이면 첫 라운드에 만나기 때문에 답은 1이다.
+	if (a % 2 == 1 && a + 1 == b) {
+		printf("1\n");
+
+		return 0;
+	}
+
+	// 2^(i-1) < a <= 2^i 를 알아낸다.
+	for (i = 1; i <= 17; i++) {				// 2의 17승이 100,000 을 넘기 때문.. 그냥 while문으로 할까..?
+		if (a <= pow(2, i)) {
+			a_range = i;
+			break;
+		}
+	}
+
+	// 2^(i-1) < b <= 2^i 를 알아낸다.
+	for (i = a_range; i <= 17; i++) {		// b는 a보다 크거나 같은 range에 있을 것이기 때문에 i=a_range로 초기화함.
+		if (b <= pow(2, i)) {
+			b_range = i;
+			break;
+		}
+	}
+
+	// a와 b 범위(2거듭제곱범위)가 다르면, b의 승만큼 라운드를 돌아야 a와 b가 만나게 되므로 답은 b_range.
+	if (a_range != b_range) {
+		printf("%d\n", b_range);
+		
+		return 0;
+	}
+	// a와 b 범위(2거듭제곱범위)가 같으면, (start_num + end_num) / 2 를 한 중간 값을 기준으로 나뉘어지는지 검사하고,
+	// 나뉘어진다면, b_range - 1 라운드만에 만나게 되는 것이다.
+	// 나뉘어지지 않고 둘다 작으면, 중간 값을 end_num으로 설정하고 다시 (start_num + end_num) / 2 로직으로 돌아간다.
+	// 나뉘어지지 않고 둘다 크면, 중간 값을 start_num으로 설정하고 다시 (start_num + end_num) / 2 로직으로 돌아간다.
+	// 반복! -> func 함수로...
+	else {
+		int start_num, end_num = 1;
+
+		for (i = 0; i < a_range; i++) {
+			end_num *= 2;
+		}
+		start_num = (end_num / 2) + 1;
+
+		result = func(a, b, start_num, end_num, a_range);
+	}
+	
+	printf("%d\n", result);
+
+	return 0;
+}
+
+int
+func(int a, int b, int start, int end, int round)
+{
+	int mid = (start + end) / 2;
+
+	round--;
+
+	if (a <= mid && b > mid) {
+		return round;
+	}
+	else if (a < mid && b <= mid) {
+		func(a, b, start, mid, round);
+	}
+	else if (a > mid && b > mid) {
+		func(a, b, mid + 1, end, round);
+	}
+}
