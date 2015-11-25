@@ -15,15 +15,12 @@ void dfs(int k) {
 		if (gragh[k][i] == 1 && visited[i] == 0) {
 			dfs(i);
 			flag = true;
-			
 		}
 	}
 	if (!flag) leaf++;
 }
 
 int main(void) {
-	int p = 0;
-
 	scanf("%d", &num);
 	for (int i = 0; i < num; i++) {
 		scanf("%d", &arr[i]);
@@ -48,26 +45,32 @@ int main(void) {
 		}
 	}
 
+	
 	/*출력*/
-	/*printf("\n");
-	printf("arr[i] : ");
-	for (int i = 0; i < num; i++) {
-		printf("%d ", arr[i]);
-	}
-	printf("\n");
+	//printf("\n");
+	//printf("arr[i] : ");
+	//for (int i = 0; i < num; i++) {
+	//	printf("%d ", arr[i]);
+	//}
+	//printf("\n");
 
-	
-	printf("gragh[i][j] : \n");
-	for (int i = 0; i < num; i++) {
-		for (int j = 0; j < num; j++) {
-			printf("%d ", gragh[i][j]);
-		}
-		printf("\n");
-	}*/
+
+	//printf("gragh[i][j] : \n");
+	//for (int i = 0; i < num; i++) {
+	//	for (int j = 0; j < num; j++) {
+	//		printf("%d ", gragh[i][j]);
+	//	}
+	//	printf("\n");
+	//}
 	/*출력*/
-	
 
 	dfs(0);
+
+	if (gragh[0][0] == 0) {
+		leaf = 0;
+	}
+
+
 	//printf("leaf : \n");
 	printf("%d\n", leaf);
 }
