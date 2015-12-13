@@ -2,6 +2,28 @@
 다이아몬드
 https://algospot.com/judge/problem/read/DIAMONDPATH
 채점 성공
+
+테스트 케이스
+
+7 			diamond[1][0]
+13			diamond[2][0]
+22			diamond[3][0]
+29			diamond[4][1]
+33			diamond[5][1]
+35			diamond[6][1]
+41			diamond[7][0]
+48			diamond[8][0]
+
+39		diamond[0][0]
+82		diamond[1][0]
+176		diamond[2][1]
+274		diamond[3][2]
+345		diamond[4][2]
+400		diamond[5][1]
+496		diamond[6][1]
+569		diamond[7][0]
+664		diamond[8][0]
+
 */
 #include <iostream>
 
@@ -15,8 +37,8 @@ int path(int **diamond, int N) {
 		size = i < N ? i + 1 : (2 * N - i - 1);
 		for (j = 0; j < size; ++j) {
 			if (i < N) {
-				if (j - 1 < 0) diamond[i][j] += max(diamond[i - 1][j], 0);
-				else if (j == size - 1) diamond[i][j] += max(diamond[i - 1][j - 1], 0);
+				if (j - 1 < 0) diamond[i][j] += diamond[i - 1][j];
+				else if (j == size - 1) diamond[i][j] += diamond[i - 1][j - 1];
 				else diamond[i][j] += max(diamond[i - 1][j - 1], diamond[i - 1][j]);
 			}
 			else
