@@ -1,6 +1,9 @@
 /*
 2015.11.16
 https://www.acmicpc.net/problem/1009
+
+채점 성공
+
 */
 
 #include <stdio.h>

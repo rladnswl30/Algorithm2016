@@ -2,6 +2,8 @@
 토마토 백준
 https://www.acmicpc.net/problem/7576
 
+넓이 우선탐색
+
 채점 성공
 */
 

@@ -1,6 +1,8 @@
 /*
 2015.11.16 피보나치 
 https://www.acmicpc.net/problem/1003
+
+채점 성공
 꼬리 재귀 
 */
 
