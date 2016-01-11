@@ -20,19 +20,39 @@ using namespace std;
 
 const unsigned long REMAINDER = 1000000007;
 
-unsigned long long Combination(int n, int k) {
-	unsigned long long a = 1, r = 1;
-	int i, j;
+inline unsigned long long mod(unsigned long long num) {
+	return (num %REMAINDER) == 0 ? REMAINDER : (num %REMAINDER);
+}
 
-	for (i = n, j = 1; i >n - k; --i, j++) {
-		a *= i;
-		r *= j;
+// unsigned long long  64 C 33 까지 가능한 combination source
+unsigned long long gcd(unsigned long long x, unsigned long long y) {
+	while (y != 0)
+	{
+		unsigned long long t = x % y;
+		x = y;
+		y = t;
 	}
-	return (a / r) % REMAINDER;
+	return x;
+}
+
+unsigned long long Combination(unsigned long long n, unsigned long long k) {
+	if (k > n)
+		throw std::invalid_argument("invalid argument in choose");
+	unsigned long long r = 1;
+	for (unsigned long long d = 1; d <= k; ++d, --n)
+	{
+		unsigned long long g = gcd(r, d);
+		r /= g;
+		unsigned long long t = n / (d / g);
+		if (r > std::numeric_limits<unsigned long long>::max() / t)
+			throw std::overflow_error("overflow in choose");
+		r *= t;
+	}
+	return r;
 }
 
 int main() {
-	int C, i;
+	int C, i, j;
 	cin >> C;
 
 	unsigned long long* res = new unsigned long long[C];
@@ -45,11 +65,11 @@ int main() {
 		res[i] = Combination(c1 + r2, c1 < r2 ? c1 : r2);
 
 		int tmp = r2;
-		for (int j = 0; j< r2; ++j) {
+		for (j = 0; j< r2; ++j) {
 			--tmp;
 			c1 += 2;
-			res[i] = res[i] % REMAINDER + Combination(c1 + tmp, c1 < tmp ? c1 : tmp);
-			res[i] %= REMAINDER;
+			res[i] = res[i] + Combination(c1 + tmp, c1 < tmp ? c1 : tmp);
+			res[i] = mod(res[i]);
 		}
 	}
 
