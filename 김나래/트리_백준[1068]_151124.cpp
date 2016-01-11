@@ -3,6 +3,7 @@
 https://www.acmicpc.net/problem/1068
 
 채점 성공
+깊이우선 탐색
 
 테스트 케이스
 
