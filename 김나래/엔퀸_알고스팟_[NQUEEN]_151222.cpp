@@ -3,7 +3,7 @@ NQUEEN 알고스팟
 
 https://www.algospot.com/judge/problem/read/NQUEEN
 
-백트래킹
+백트래킹 / 깊이우선탐색
 채점 성공
 
 테스트 케이스
