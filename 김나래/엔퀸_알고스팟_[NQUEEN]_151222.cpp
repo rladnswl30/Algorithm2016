@@ -3,6 +3,7 @@ NQUEEN 알고스팟
 
 https://www.algospot.com/judge/problem/read/NQUEEN
 
+백트래킹
 채점 성공
 
 테스트 케이스
@@ -63,3 +64,55 @@ int main() {
 
 	return 0;
 }
+
+/*
+ NQUEEN 정답
+
+#include <stdio.h>
+#include <math.h>
+
+int plane[12];
+int n = 0;
+int cnt = 0;
+
+void process(int y) {
+	if (y == n) {
+		cnt++;
+		return;
+	}
+	for (int i = 0; i < n; i++) {
+		bool ok = true;
+		for (int j = 0; j < y; j++) {
+			if (plane[j] == i || abs(y - j) == abs(i - plane[j])) {
+				ok = false;
+				break;
+			}
+		}
+
+		if (오케이) {
+			plane[y] = i;
+			for (int y = 0; y < n; y++) {
+				printf("%d ", plane[y]);
+			}
+			printf("\n");
+			process(y + 1);
+		}
+	}
+}
+
+int main() {
+	int tc;
+	scanf("%d", &tc);
+
+	while (tc--) {
+		scanf("%d", &n);
+		cnt = 0;   //초기화
+		process(0);
+
+		printf("%d\n", cnt);
+	}
+
+	return 0;
+}
+
+*/
