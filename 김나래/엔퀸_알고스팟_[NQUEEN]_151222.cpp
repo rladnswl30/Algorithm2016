@@ -89,7 +89,7 @@ void process(int y) {
 			}
 		}
 
-		if (©юдиюл) {
+		if (ok) {
 			plane[y] = i;
 			for (int y = 0; y < n; y++) {
 				printf("%d ", plane[y]);
