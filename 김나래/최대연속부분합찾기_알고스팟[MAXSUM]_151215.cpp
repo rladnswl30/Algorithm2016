@@ -2,9 +2,7 @@
 최대 연속 부분합 찾기
 알고스팟
 https://algospot.com/user/profile/18914
-
 채점 성공
-
 그리디 방법
 */
 #include <iostream>
