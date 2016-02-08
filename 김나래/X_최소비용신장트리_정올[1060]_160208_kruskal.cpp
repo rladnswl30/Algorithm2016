@@ -8,7 +8,6 @@ http://www.jungol.co.kr/bbs/board.php?bo_table=pbank&wr_id=340&sca=3020
 너비우선탐색
 그리디
 크루스칼 알고리즘
-
 */
 
 #include <iostream>
@@ -20,16 +19,23 @@ using namespace std;
 
 const int MAX = 100;
 
-typedef struct Graph {
+typedef struct G {
 	int u, v, w;
-	Graph(int _u, int _v, int _w) : u(_u), v(_v), w(_w) {}
-	Graph() {}
+	G(int _u, int _v, int _w) : u(_u), v(_v), w(_w) {}
+	G() {}
 };
 
-int kruskal(vector<Graph>& arr, int N) {
+int kruskal(vector<G>& arr, int N) {
 	vector<set<int>> s;
-	bool noIntersect = true;
-	for (int i = 0; i < N*N; ++i) {
+	bool noIntersect = true, first = true;
+	int uni, sum = 0, i = 1;
+
+	set<int> tmp;
+	tmp.insert(arr[0].u);
+	tmp.insert(arr[0].v);
+	s.push_back(tmp);
+
+	while (s[0].size() < N + 1) {
 		int j, u = arr[i].u, v = arr[i].v;
 		for (j = 0; j < s.size(); ++j) {
 			if (s[j].find(u) != s[j].end()
@@ -37,40 +43,39 @@ int kruskal(vector<Graph>& arr, int N) {
 				s[j].insert(u);
 				s[j].insert(v);
 				noIntersect = false;
-				break;
+				if (first) { uni = j; first = false; }
+				else if (uni != j) {
+					s[uni].insert(s[j].begin(), s[j].end());
+					s[j].clear();
+				}
 			}
 		}
-		// intersect가 없으면 new..
+		// intersect가 없으면 new set 생성
 		if (noIntersect) {
 			set<int> tmp;
 			tmp.insert(u);
 			tmp.insert(v);
 			s.push_back(tmp);
 		}
-
-
-
-		union();
+		++i;
 	}
-
+	return 0;
 }
 
 int main() {
 	int N, w;
-	vector<Graph> lst;
+	vector<G> lst;
 
 	cin >> N;
 
 	for (int u = 0; u < N; ++u)
-		for (int v = 0; v < N; ++v)
+		for (int v = 0; v < N; ++v) {
+			cin >> w;
 			if (w != 0 && u != v)
-				lst.push_back(Graph(u, v, w));
+				lst.push_back(G(u, v, w));
+		}
 
-	sort(lst.begin(), lst.end(), [](const void* l, const void* r) {
-		return static_cast<const Graph*>(l)->w >
-			static_cast<const Graph*>(r)->w;
-	});
-
+	sort(lst.begin(), lst.end(), [](const G& l, const G& r) {return l.w > r.w; });
 	kruskal(lst, N);
 
 	return 0;
