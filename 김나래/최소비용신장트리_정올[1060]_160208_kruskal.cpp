@@ -64,6 +64,29 @@ int kruskal(vector<G>& edges, int N) {
 	return sum;
 }
 
+int main() {
+	int N, w;
+	vector<G> edges;
+
+	cin >> N;
+
+	for (int u = 0; u < N; ++u)
+		for (int v = 0; v < N; ++v) {
+			cin >> w;
+			if (w != 0 && u < v) // u< v 이면 중복 대칭 없어짐
+				edges.push_back(G(u, v, w));
+		}
+
+	sort(edges.begin()
+		, edges.end()
+		, [](const G& l, const G& r) {
+		return l.w < r.w; });
+
+	cout << kruskal(edges, N) << endl;
+
+	return 0;
+}
+
 /*
 테스트 케이스
 
