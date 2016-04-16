@@ -8,6 +8,8 @@ http://59.23.113.171/30stair/zerosum/zerosum.php?pname=zerosum
 백 트래킹 + dfs
 재귀 트리 말고 스택 이용한 dfs 풀이 공부
 
+틀린답으로 나오지만 순서만 바뀌었을 뿐 맞았음
+
 */
 #include <iostream>
 #include <string>
@@ -29,8 +31,11 @@ int zeroSum(char(&stack)[10], int& resN, const char(&sign)[3], const int N, int 
 			else return 0;
 		}
 
-		stack[idx] = sign[s];		// 현재
+		stack[idx] = sign[s]; // 현재
 
+		// 이 함수 호출 부분을 if 문과함께
+		// num, sum 등의 메모리를 변경하면
+		// 재귀 호출 하지 않고 구현 가능해 보임
 		if (zeroSum(stack, resN, sign, N, sum +
 			(sign[s] != ' ' && stack[tmp] == '+' ? num :
 				sign[s] != ' ' && stack[tmp] == '-' ? -num :

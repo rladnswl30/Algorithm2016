@@ -10,7 +10,6 @@ https://www.acmicpc.net/problem/1916
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <set>
 #include <climits>
 
 using namespace std;
@@ -26,14 +25,14 @@ typedef struct Edge {
 }Edge;
 
 long long Dijkstra(vector<Edge>(&adj)[1010], int start, int end, int N) {
-	priority_queue<Edge>Q;
+	priority_queue<Edge> Q;
 	long long d[1010];
 
 	for (int i = 1; i < N + 1; ++i)
 		d[i] = (i == start) ? 0 : INF;
 
 	int next = start;
-	do {
+	while (1){
 		for (int i = 0; i < adj[next].size(); ++i) {
 			int v = adj[next][i].v;
 			if (d[v] > d[next] + adj[next][i].w) {
@@ -47,7 +46,7 @@ long long Dijkstra(vector<Edge>(&adj)[1010], int start, int end, int N) {
 		next = Q.top().v;
 
 		Q.pop();
-	} while (1);
+	}
 
 	return d[end];
 }
