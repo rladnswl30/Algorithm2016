@@ -46,8 +46,8 @@ void TopDown(int *D, int N, int res){
 	D[N] = min;
 } 
 
-// queue + DP 채점 성공
-void BottomUp(int *D, int N){
+// TopDown방식의 DP 방법을 큐를 이용해 속도 개선
+void TopDown2(int *D, int N){
 	D[N] = 0;
 	queue<int> que;
 	que.push(N);
@@ -78,7 +78,62 @@ void BottomUp(int *D, int N){
 		
 	}
 }
+/*
+TopDown 풀이 : 
+#include <iostream>
+using namespace std;
+int d[1000001];
+int go(int n) {
+    if (n == 1) {
+        return 0;
+    }
+    if (d[n] > 0) {
+        return d[n];
+    }
+    d[n] = go(n-1) + 1;
+    if (n%2 == 0) {
+        int temp = go(n/2) + 1;
+        if (d[n] > temp) {
+            d[n] = temp;
+        }
+    }
+    if (n%3 == 0) {
+        int temp = go(n/3) + 1;
+        if (d[n] > temp) {
+            d[n] = temp;
+        }
+    }
+    return d[n];
+}
+int main() {
+    int n;
+    cin >> n;
+    cout << go(n) << '\n';
+    return 0;
+}
 
+
+Bottom-Up 풀이 : 
+#include <iostream>
+using namespace std;
+int d[1000001];
+int main() {
+    int n;
+    cin >> n;
+    d[1] = 0;
+    for (int i=2; i<=n; i++) {
+        d[i] = d[i-1] + 1;
+        if (i%2 == 0 && d[i] > d[i/2] + 1) {
+            d[i] = d[i/2] + 1;
+        }
+        if (i%3 == 0 && d[i] > d[i/3] + 1) {
+            d[i] = d[i/3] + 1;
+        }
+    }
+    cout << d[n] << '\n';
+    return 0;
+}
+*/
 int main(){
 	int N;
 	cin >> N;
@@ -88,7 +143,7 @@ int main(){
 	for(int i=0; i< N+1; ++i)
 		D[i] = max_int;
 
-	BottomUp(D, N);
+	TopDown2(D, N);
 	cout << D[1] << endl;
 	
 	/* topdown일 경우 주석 해제
