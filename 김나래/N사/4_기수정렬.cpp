@@ -60,7 +60,7 @@ int main(void)
 
 			if (digit - j > 0) {
 				pre = numbers[i] / (int)pow(10, j) % 10;
-				radix[numbers[i] / (int)pow(10, j) % 10].push(numbers[i]);
+				radix[pre].push(numbers[i]);
 			}
 			else {
 				// pre가 0 이면 radix sort 임
